@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-for item in $(find . -maxdepth 1 -mindepth 1 \(-not -iname 'install' -and -not -iname '.git'\) -printf '%f\n')
+for item in $(find . -maxdepth 1 -mindepth 1 \( -not -iname 'install' -and -not -iname '.git' \) -printf '%f\n')
 do
     stow -D $item
     stow $item;
