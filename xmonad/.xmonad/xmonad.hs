@@ -81,7 +81,7 @@ myFocusedBorderColor = "#bc96da"
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-clipboardy :: MonadIO m => m () -- Don't question it 
+clipboardy :: MonadIO m => m () -- Don't question it
 clipboardy = spawn "greenclip print | sed '/^$/d' | dmenu -i -l 10 -p \"\63053 :greenclip print\" | xargs -r -d'\n' -I '{}' greenclip print '{}'"
 
 maimcopy = spawn "maim -s | xclip -selection clipboard -t image/png && notify-send \"Screenshot\" \"Copied to Clipboard\" -i flameshot"
@@ -96,10 +96,10 @@ myKeys =
     --KB_GROUP Xmonad
         [ ("M-S-q", spawn "~/.local/bin/powermenu.sh")                          -- Quit Xmonad
         , ("M-q", spawn "xmonad --recompile; xmonad --restart")                 -- Recompile and Restart Xmonad
-   
+
     -- KB_GROUP Useful programs to have a keybinding for launch
         , ("M-S-<Return>", spawn (myTerminal))                                  -- Launch a Terminal
-    
+
     -- KB_GROUP Floating windows
         , ("M-t", withFocused $ windows . W.sink)                               -- Push window back into tiling
 
@@ -108,8 +108,8 @@ myKeys =
 
     -- KB_GROUP Desktop behavior
         , ("M-C-x", spawn "slock")                                              -- Lock the Screen
-        , ("M-S-3", maimcopy)                                                   -- Put Screenshot into Clipboard
-        , ("M-S-4", maimsave)                                                   -- Save Screenshot to ~/screenshots
+        , ("C-S-3", maimcopy)                                                   -- Put Screenshot into Clipboard
+        , ("C-S-4", maimsave)                                                   -- Save Screenshot to ~/screenshots
         , ("M-S-a", clipboardy)                                                 -- Open Clipboard
 
     -- KB_GROUP Layouts
@@ -210,7 +210,7 @@ monocle  = renamed [Replace "monocle"]
 
 myLayout = avoidStruts $ smartBorders $ windowArrange $ fullscreenFull $ T.toggleLayouts simplestFloat
             $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
-    where 
+    where
         myDefaultLayout = withBorder myBorderWidth tall ||| mirror ||| monocle
 
 ------------------------------------------------------------------------
@@ -278,7 +278,7 @@ main = do
 
       -- hooks, layouts
         manageHook          = myManageHook <+> manageDocks,
-        handleEventHook     = docksEventHook <+> fullscreenEventHook, 
+        handleEventHook     = docksEventHook <+> fullscreenEventHook,
         layoutHook          = myLayout,
         logHook             = dynamicLogWithPP $ xmobarPP
 -- the following variables beginning with 'pp' are settings for xmobar.
