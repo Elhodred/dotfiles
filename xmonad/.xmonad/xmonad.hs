@@ -260,7 +260,6 @@ myStartupHook = do
 --
 main = do
     xmproc0 <- spawnPipe "xmobar -x 0 $HOME/.config/xmobar/doom-one-xmobarrc"
-    xmproc1 <- spawnPipe "xmobar -x 1 $HOME/.config/xmobar/doom-one-xmobarrc"
 
     xmonad $ fullscreenSupport $ docks $ ewmh def {
       -- simple stuff
@@ -282,8 +281,7 @@ main = do
         layoutHook          = myLayout,
         logHook             = dynamicLogWithPP $ xmobarPP
 -- the following variables beginning with 'pp' are settings for xmobar.
-            { ppOutput = \x -> hPutStrLn xmproc0 x                          -- xmobar on monitor 1
-                            >> hPutStrLn xmproc1 x                          -- xmobar on monitor 2
+            { ppOutput = hPutStrLn xmproc0                           -- xmobar on monitor 1
 
             , ppCurrent = xmobarColor "#c792ea" "" . wrap "<box type=Bottom width=2 mb=2 color=#c792ea>" "</box>"   -- Current workspace
             , ppVisible = xmobarColor "#c792ea" ""                                                                  -- Visible but not current workspace
